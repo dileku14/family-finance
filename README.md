@@ -1,15 +1,12 @@
-# Family Finance — iPhone PWA (demo)
+# Family Finance — Două zone
 
-Aceasta este o versiune **demonstrativă** a interfeței HTML existente, ambalată ca PWA. Nu este aplicație iOS nativă. Unele acțiuni sunt simulate, iar datele introduse nu sunt încă sincronizate/persistate ca într-un produs real. Nu introduce date financiare sensibile.
+Deschiderea aplicației (`index.html`) oferă alegerea între zona adulților (`adulti.html`, bazată pe prototipul V13 anterior) și Academia Banilor (`academia.html`, prototipul educațional).
 
-## Publicare gratuită de pe iPhone (GitHub Pages)
-1. Creează un repository **public** nou pe github.com (de exemplu `family-finance-demo`). Atenție: toate fișierele încărcate într-un repo public sunt vizibile oricui.
-2. În repository apasă **Add file → Upload files** și încarcă separat toate fișierele din acest folder, la rădăcina repository-ului (nu ZIP-ul). Interfața mobilă GitHub poate necesita „Request Desktop Website” în Safari.
-3. În **Settings → Pages → Build and deployment**, alege **Deploy from a branch**, branch `main`, folder `/ (root)`, apoi Save.
-4. După publicare, deschide adresa HTTPS indicată de GitHub Pages (de obicei `https://USERNAME.github.io/REPO/`) în **Safari**.
-5. Safari → Share → **Add to Home Screen** → Add.
+## Publicare pe GitHub Pages de pe iPhone
+1. Descarcă și dezarhivează ZIP-ul în Fișiere.
+2. Încarcă **toate cele 9 fișiere** din arhivă în rădăcina ramurii `main` din depozitul `family-finance`. Înlocuiește fișierele cu același nume, dacă GitHub permite.
+3. Nu încărca arhiva ZIP sau folderul exterior.
+4. Verifică `https://dileku14.github.io/family-finance/?v=alegere1`. Dacă pictograma veche afișează pagina veche, deschide mai întâi adresa în Safari și reîncarcă.
 
-GitHub Pages este hosting static; nu configurează automat Supabase sau un AI real. Pentru date private/conturi și sincronizare avem nevoie de backend și reguli de acces.
-
-## Feedback
-`feedback.html` este un prototip local. Propunerile rămân în localStorage; nu există backend, voturi comune sau abonamente reale. Pentru lansare: Supabase Auth + tabele feedback/feedback_votes/reward_grants, RLS, moderare, prevenirea abuzurilor și acordare Premium doar de administrator.
+## Limitări
+Prototip local, fără server, autentificare, plăți, AI real sau control parental. Nu introduce date financiare reale. Interfața pentru adulți păstrează valorile și comportamentul demonstrativ din V13, inclusiv eventualele exemple precompletate. Nu este un produs financiar de producție.
