@@ -1,1 +1,1 @@
-Family Finance — două zone, cu PIN demonstrativ pentru Zona Părintelui.\nÎncarcă toate fișierele în rădăcina repository-ului GitHub Pages.\nPIN-ul este local și NU este autentificare sigură. Nu folosi date financiare reale sau un PIN personal.\n
+Family Finance — Lumea 1 Satul Banilor. Include toate zonele și PIN-ul demonstrativ. Încarcă fișierele în rădăcina repo-ului GitHub Pages. Progresul existent se păstrează în browser; noul progres al aventurii este salvat local. Fără backend, plăți sau AI real.
