@@ -1,1 +1,1 @@
-Family Finance — Lumea 1 Satul Banilor. Include toate zonele și PIN-ul demonstrativ. Încarcă fișierele în rădăcina repo-ului GitHub Pages. Progresul existent se păstrează în browser; noul progres al aventurii este salvat local. Fără backend, plăți sau AI real.
+Family Finance — Lumea 2: Magazinul lui Vixi. Înlocuiți fișierele din rădăcina repo-ului GitHub. Datele existente din localStorage sunt păstrate. Magazinul este o simulare cu monede virtuale, nu plăți reale. PIN-ul este doar demonstrativ.
