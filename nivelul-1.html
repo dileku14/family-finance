@@ -8,9 +8,9 @@
 .stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:22px}
 .scene{display:block;width:100%;height:100%;object-fit:contain}
 .tap-owl{position:absolute;left:20%;top:19%;width:60%;height:52%;border:0;background:transparent;cursor:pointer}
-.choices{position:absolute;left:4%;right:4%;top:76%;height:19%;display:grid;grid-template-columns:1fr 1fr;gap:3%;z-index:5}
-.choices button{border:0;background:transparent;cursor:pointer;touch-action:manipulation;border-radius:20px;-webkit-tap-highlight-color:transparent}
-.choices button:focus-visible,.tap-owl:focus-visible{outline:3px solid #fff}
+.choices{position:absolute;left:4%;right:4%;bottom:2%;height:23%;display:grid;grid-template-columns:1fr 1fr;gap:3%;z-index:5}
+.choices button{border:3px solid #f8e8ad;background:#55b946;cursor:pointer;touch-action:manipulation;border-radius:22px;-webkit-tap-highlight-color:transparent;color:white;font-size:clamp(19px,5vw,28px);font-weight:900;text-shadow:0 2px 3px #0005;box-shadow:0 4px 0 #317b32}
+.choices button:last-child{background:#f3a126;box-shadow:0 4px 0 #ad6818}.choices button:focus-visible,.tap-owl:focus-visible{outline:3px solid #fff}
 .choices button:disabled{cursor:default}
 .progress{display:flex;gap:7px;justify-content:center;margin:10px 0 0}
 .progress span{font-size:clamp(24px,7vw,35px);filter:grayscale(1);opacity:.35}
@@ -24,7 +24,7 @@
 <div class="stage" id="stage">
 <img class="scene" id="scene" src="./D1CAE969-BA46-4427-B331-2B2187BD85C8.png" alt="Bani ține un coș cu pâine">
 <button class="tap-owl" id="repeat" aria-label="Ascultă întrebarea din nou"></button>
-<div class="choices" id="choices"><button type="button" data-answer="nevoie" aria-label="Nevoie"></button><button type="button" data-answer="dorinta" aria-label="Dorință"></button></div>
+<div class="choices" id="choices"><button type="button" data-answer="nevoie" aria-label="Nevoie">Nevoie</button><button type="button" data-answer="dorinta" aria-label="Dorință">Dorință</button></div>
 <div class="finish hidden" id="finish"><div style="font-size:65px">🌟</div><strong style="font-size:29px">Bravo! Ai terminat!</strong><a href="./academia.html">Continuă aventura →</a></div>
 </div>
 <div class="progress" id="progress" aria-label="Steluțe câștigate"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
