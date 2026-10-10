@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ro"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Bani · Nivelul 2</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#194832;color:white;font-family:system-ui,-apple-system,sans-serif}
+.game{width:min(100%,600px);margin:auto;min-height:100dvh;padding:14px 12px 24px;display:flex;flex-direction:column;align-items:center;gap:15px}
+.header{width:100%;display:flex;justify-content:space-between;align-items:center;color:#ffe5a1;font-size:19px;font-weight:800}
+.stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:22px}
+.scene{display:block;width:100%;height:100%;object-fit:contain}
+.tap-owl{position:absolute;left:20%;top:19%;width:60%;height:52%;border:0;background:transparent;cursor:pointer}
+.choices{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px;z-index:5}
+.choices button{min-height:76px;border:3px solid #f8e8ad;background:#1689ed;cursor:pointer;touch-action:manipulation;border-radius:22px;-webkit-tap-highlight-color:transparent;color:white;font-size:clamp(19px,5vw,28px);font-weight:900;text-shadow:0 2px 3px #0005;box-shadow:0 4px 0 #0860b0}
+.choices button:last-child{background:#1689ed;box-shadow:0 4px 0 #0860b0}.choices button:focus-visible,.tap-owl:focus-visible{outline:3px solid #fff}
+.choices button:disabled{cursor:default}
+.progress{display:flex;gap:7px;justify-content:center;margin:10px 0 0}
+.progress span{font-size:clamp(24px,7vw,35px);filter:grayscale(1);opacity:.35}
+.progress span.earned{filter:none;opacity:1}
+.flying{position:fixed;z-index:30;font-size:96px;pointer-events:none;transition:transform 1s ease-in,opacity 1s}
+.finish{position:absolute;inset:0;background:#18543ff2;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center}
+.finish a{background:#ffe27a;color:#25482d;padding:15px 20px;border-radius:20px;font-size:20px;font-weight:800;text-decoration:none}
+.hidden{display:none!important}
+</style></head><body><main class="game">
+<div class="header" id="header"><span>🦉 Nivelul 2</span><span id="count">1 / 6</span></div>
+<div class="stage" id="stage">
+<img class="scene" id="scene" src="./01_bani_brutarie.png" alt="Bani cu brutarul la brutărie">
+<button class="tap-owl" id="repeat" aria-label="Ascultă întrebarea din nou"></button>
+<div class="finish hidden" id="finish"><div style="font-size:65px">🌟</div><strong style="font-size:29px">Bravo! Ai terminat!</strong><a href="./academia.html">Continuă aventura →</a></div>
+</div>
+<div class="choices" id="choices"><button type="button" data-answer="da">👍 DA</button><button type="button" data-answer="nu">👎 NU</button></div>
+<div class="progress" id="progress" aria-label="Steluțe câștigate"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
+</main>
+<script>
+(()=>{
+const questions=[
+{image:'./01_bani_brutarie.png',question:'Brutarul câștigă bani când face pâine?',answer:'da',alt:'Bani și brutarul la brutărie'},
+{image:'./02_bani_spital.png',question:'Doctorul este plătit pentru munca lui?',answer:'da',alt:'Bani și doctorița la spital'},
+{image:'./03_bani_jucarii.png',question:'Dacă îți dorești o jucărie, primești automat bani?',answer:'nu',alt:'Bani la magazinul de jucării'},
+{image:'./04_bani_taxi.png',question:'Șoferul câștigă bani transportând oameni?',answer:'da',alt:'Bani cu șoferul de taxi'},
+{image:'./05_bani_copac_bani.png',question:'Banii cresc în copaci?',answer:'nu',alt:'Bani privește copacul cu monede'},
+{image:'./06_bani_pusculita.png',question:'Poți păstra o parte din banii primiți pentru mai târziu?',answer:'da',alt:'Bani și pușculița roz'}];
+let index=0,locked=false;
+const scene=document.getElementById('scene'),header=document.getElementById('header');
+const buttons=[...document.querySelectorAll('[data-answer]')];
+const stars=[...document.querySelectorAll('#progress span')];
+function speak(t){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ro-RO';u.rate=.9;window.speechSynthesis.speak(u)}
+function ask(){speak('Spune-mi, micule aventurier, '+questions[index].question)}
+function show(){locked=false;const q=questions[index];scene.src=q.image;scene.alt=q.alt;document.getElementById('count').textContent=(index+1)+' / 6';header.classList.remove('hidden');buttons.forEach(b=>b.disabled=false)}
+function fly(n){const target=stars[n].getBoundingClientRect();const el=document.createElement('div');el.className='flying';el.textContent='⭐';el.style.left='calc(50% - 48px)';el.style.top='38%';document.body.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>{const r=el.getBoundingClientRect();el.style.transform='translate('+(target.left+target.width/2-r.left-r.width/2)+'px,'+(target.top+target.height/2-r.top-r.height/2)+'px) scale(.3)';el.style.opacity='.5'}));setTimeout(()=>el.remove(),1150)}
+function choose(answer){if(locked)return;if(answer!==questions[index].answer){speak('Mmm... Eu zic să mai încerci o dată.');return}
+locked=true;buttons.forEach(b=>b.disabled=true);stars[index].classList.add('earned');fly(index);speak('Bravo! Ai ales corect!');
+setTimeout(()=>{index++;if(index===questions.length){document.getElementById('finish').classList.remove('hidden');speak('Felicitări! Acum știi că banii se câștigă prin muncă și pot fi economisiți!');return}show();ask()},1800)}
+buttons.forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();choose(b.dataset.answer)}));
+document.getElementById('repeat').addEventListener('click',e=>{e.stopPropagation();if(!locked)ask()});
+show();
+})();
+</script></body></html>
