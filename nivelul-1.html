@@ -43,7 +43,7 @@ const scene=document.getElementById('scene'),header=document.getElementById('hea
 const buttons=[...document.querySelectorAll('[data-answer]')];
 const stars=[...document.querySelectorAll('#progress span')];
 function speak(t){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ro-RO';u.rate=.9;window.speechSynthesis.speak(u)}
-function ask(){speak('Spune-mi, micule aventurier, '+questions[index].name+' este o nevoie sau o dorință?')}
+function ask(){const q=questions[index];const verb=q.name==='bomboanele'?'sunt':'este';speak('Spune-mi, micule aventurier, '+q.name+' '+verb+' o nevoie sau o dorință?')}
 function show(){locked=false;const q=questions[index];scene.src=q.image;scene.alt=q.alt;document.getElementById('count').textContent=(index+1)+' / 6';header.classList.remove('hidden');buttons.forEach(b=>b.disabled=false)}
 function fly(n){const target=stars[n].getBoundingClientRect();const el=document.createElement('div');el.className='flying';el.textContent='⭐';el.style.left='calc(50% - 48px)';el.style.top='38%';document.body.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>{const r=el.getBoundingClientRect();el.style.transform='translate('+(target.left+target.width/2-r.left-r.width/2)+'px,'+(target.top+target.height/2-r.top-r.height/2)+'px) scale(.3)';el.style.opacity='.5'}));setTimeout(()=>el.remove(),1150)}
 function choose(answer){if(locked)return;if(answer!==questions[index].answer){speak('Mmm... Eu zic să mai încerci o dată.');return}
