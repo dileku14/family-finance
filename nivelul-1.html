@@ -8,8 +8,8 @@
 .stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden;border-radius:22px}
 .scene{display:block;width:100%;height:100%;object-fit:contain}
 .tap-owl{position:absolute;left:20%;top:19%;width:60%;height:52%;border:0;background:transparent;cursor:pointer}
-.choices{position:absolute;left:4%;right:4%;bottom:2%;height:23%;display:grid;grid-template-columns:1fr 1fr;gap:3%;z-index:5}
-.choices button{border:3px solid #f8e8ad;background:#55b946;cursor:pointer;touch-action:manipulation;border-radius:22px;-webkit-tap-highlight-color:transparent;color:white;font-size:clamp(19px,5vw,28px);font-weight:900;text-shadow:0 2px 3px #0005;box-shadow:0 4px 0 #317b32}
+.choices{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:12px;z-index:5}
+.choices button{min-height:76px;border:3px solid #f8e8ad;background:#55b946;cursor:pointer;touch-action:manipulation;border-radius:22px;-webkit-tap-highlight-color:transparent;color:white;font-size:clamp(19px,5vw,28px);font-weight:900;text-shadow:0 2px 3px #0005;box-shadow:0 4px 0 #317b32}
 .choices button:last-child{background:#f3a126;box-shadow:0 4px 0 #ad6818}.choices button:focus-visible,.tap-owl:focus-visible{outline:3px solid #fff}
 .choices button:disabled{cursor:default}
 .progress{display:flex;gap:7px;justify-content:center;margin:10px 0 0}
@@ -22,31 +22,29 @@
 </style></head><body><main class="game">
 <div class="header" id="header"><span>🦉 Nivelul 1</span><span id="count">1 / 6</span></div>
 <div class="stage" id="stage">
-<img class="scene" id="scene" src="./D1CAE969-BA46-4427-B331-2B2187BD85C8.png" alt="Bani ține un coș cu pâine">
+<img class="scene" id="scene" src="./01_bani_brutar_paine.png" alt="Bani brutar făcând pâine">
 <button class="tap-owl" id="repeat" aria-label="Ascultă întrebarea din nou"></button>
-<div class="choices" id="choices"><button type="button" data-answer="nevoie" aria-label="Nevoie">Nevoie</button><button type="button" data-answer="dorinta" aria-label="Dorință">Dorință</button></div>
 <div class="finish hidden" id="finish"><div style="font-size:65px">🌟</div><strong style="font-size:29px">Bravo! Ai terminat!</strong><a href="./academia.html">Continuă aventura →</a></div>
 </div>
+<div class="choices" id="choices"><button type="button" data-answer="nevoie">🍃 Nevoie</button><button type="button" data-answer="dorinta">❤️ Dorință</button></div>
 <div class="progress" id="progress" aria-label="Steluțe câștigate"><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span></div>
 </main>
 <script>
 (()=>{
-const bread='./D1CAE969-BA46-4427-B331-2B2187BD85C8.png';
-const teddy='./a_bright_colorful_3d_cgi_cartoon_style_education.png';
 const questions=[
-{image:bread,name:'pâinea',answer:'nevoie',alt:'Bani cu un coș de pâine'},
-{image:teddy,name:'ursulețul de pluș',answer:'dorinta',alt:'Bani cu un ursuleț de pluș'},
-{image:bread,name:'apa',answer:'nevoie',alt:'Bani'},
-{image:bread,name:'jocul',answer:'dorinta',alt:'Bani'},
-{image:bread,name:'haina groasă',answer:'nevoie',alt:'Bani'},
-{image:bread,name:'bomboanele',answer:'dorinta',alt:'Bani'}];
+{image:'./01_bani_brutar_paine.png',name:'pâinea',answer:'nevoie',alt:'Bani brutar făcând pâine'},
+{image:'./02_bani_ursulet_plus.png',name:'ursulețul de pluș',answer:'dorinta',alt:'Bani îmbrățișează un ursuleț mare'},
+{image:'./03_bani_apa.png',name:'apa',answer:'nevoie',alt:'Bani toarnă apă într-un pahar'},
+{image:'./04_bani_joc_video.png',name:'jocul video',answer:'dorinta',alt:'Bani joacă un joc video cu căști și controller'},
+{image:'./05_bani_iarna.png',name:'haina groasă',answer:'nevoie',alt:'Bani iarna îmbrăcat gros cu căciulă'},
+{image:'./06_bani_bomboane.png',name:'bomboanele',answer:'dorinta',alt:'Bani în magazinul de bomboane'}];
 let index=0,locked=false;
 const scene=document.getElementById('scene'),header=document.getElementById('header');
 const buttons=[...document.querySelectorAll('[data-answer]')];
 const stars=[...document.querySelectorAll('#progress span')];
 function speak(t){if(!('speechSynthesis' in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ro-RO';u.rate=.9;window.speechSynthesis.speak(u)}
 function ask(){speak('Spune-mi, micule aventurier, '+questions[index].name+' este o nevoie sau o dorință?')}
-function show(){locked=false;const q=questions[index];scene.src=q.image;scene.alt=q.alt;document.getElementById('count').textContent=(index+1)+' / 6';header.classList.toggle('hidden',index===1);buttons.forEach(b=>b.disabled=false)}
+function show(){locked=false;const q=questions[index];scene.src=q.image;scene.alt=q.alt;document.getElementById('count').textContent=(index+1)+' / 6';header.classList.remove('hidden');buttons.forEach(b=>b.disabled=false)}
 function fly(n){const target=stars[n].getBoundingClientRect();const el=document.createElement('div');el.className='flying';el.textContent='⭐';el.style.left='calc(50% - 48px)';el.style.top='38%';document.body.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>{const r=el.getBoundingClientRect();el.style.transform='translate('+(target.left+target.width/2-r.left-r.width/2)+'px,'+(target.top+target.height/2-r.top-r.height/2)+'px) scale(.3)';el.style.opacity='.5'}));setTimeout(()=>el.remove(),1150)}
 function choose(answer){if(locked)return;if(answer!==questions[index].answer){speak('Mmm... Eu zic să mai încerci o dată.');return}
 locked=true;buttons.forEach(b=>b.disabled=true);stars[index].classList.add('earned');fly(index);speak('Bravo! Ai ales corect!');
